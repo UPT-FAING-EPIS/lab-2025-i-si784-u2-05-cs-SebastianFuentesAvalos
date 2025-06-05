@@ -1,0 +1,36 @@
+name: Publish Docs
+
+on:
+  push:
+    branches:
+      - main   # Cambia a la rama que uses para producción
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install DocFX
+        run: |
+          dotnet tool install -g docfx
+          export PATH="$PATH:$HOME/.dotnet/tools"
+
+      - name: Generate Documentation
+        run: |
+          cd Bank
+          docfx docfx.json
+        working-directory: ./
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./Bank/_site
