@@ -1,0 +1,55 @@
+name: Release NuGet Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    env:
+      NUGET_VERSION: 2022074263
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set version in .csproj
+        run: |
+          cd Bank
+          find . -name '*.csproj' -exec sed -i "s|<Version>.*</Version>|<Version>${NUGET_VERSION}</Version>|" {} \;
+
+      - name: Restore dependencies
+        run: |
+          cd Bank
+          dotnet restore
+
+      - name: Build project
+        run: |
+          cd Bank
+          dotnet build --no-restore --configuration Release
+
+      - name: Pack NuGet package
+        run: |
+          cd Bank
+          dotnet pack Bank.Domain/Bank.Domain.csproj --no-build --configuration Release --output ../nupkg
+
+      - name: Push package to GitHub Packages
+        run: dotnet nuget push ./nupkg/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --skip-duplicate
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Release ${{ env.NUGET_VERSION }}"
+          tag_name: ${{ env.NUGET_VERSION }}
+          files: ./nupkg/*.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
