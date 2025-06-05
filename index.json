@@ -1,0 +1,27 @@
+{
+  "api/Bank.Domain.Tests.BankAccountTests.html": {
+    "href": "api/Bank.Domain.Tests.BankAccountTests.html",
+    "title": "Class BankAccountTests | Documentacion BankAccount",
+    "summary": "Class BankAccountTests Namespace Bank.Domain.Tests Assembly Bank.Domain.Tests.dll public class BankAccountTests Inheritance object BankAccountTests Inherited Members object.Equals(object) object.Equals(object, object) object.GetHashCode() object.GetType() object.MemberwiseClone() object.ReferenceEquals(object, object) object.ToString() Methods Balance_ReturnsInitialBalance() [Fact] public void Balance_ReturnsInitialBalance() Credit_NegativeAmount_ShouldThrowWithCorrectMessage() [Fact] public void Credit_NegativeAmount_ShouldThrowWithCorrectMessage() Credit_WithValidAmount_UpdatesBalance() [Fact] public void Credit_WithValidAmount_UpdatesBalance() Credit_ZeroAmount_ShouldNotChangeBalance() [Fact] public void Credit_ZeroAmount_ShouldNotChangeBalance() CustomerName_ReturnsCorrectName() [Fact] public void CustomerName_ReturnsCorrectName() Debit_AmountEqualToBalance_ShouldSucceed() [Fact] public void Debit_AmountEqualToBalance_ShouldSucceed() Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange() [Fact] public void Debit_WhenAmountIsLessThanZero_ShouldThrowArgumentOutOfRange() Debit_WhenAmountIsMoreThanBalance_ShouldThrowArgumentOutOfRange() [Fact] public void Debit_WhenAmountIsMoreThanBalance_ShouldThrowArgumentOutOfRange() Debit_WithZeroAmount_ShouldNotThrow() [Fact] public void Debit_WithZeroAmount_ShouldNotThrow() MultiDebit_WithValidAmount_UpdatesBalance(double, double, double) [Theory] [InlineData(new object[] { 11.99, 4.55, 7.44 })] [InlineData(new object[] { 12.3, 5.2, 7.1 })] public void MultiDebit_WithValidAmount_UpdatesBalance(double beginningBalance, double debitAmount, double expected) Parameters beginningBalance double debitAmount double expected double"
+  },
+  "api/Bank.Domain.Tests.html": {
+    "href": "api/Bank.Domain.Tests.html",
+    "title": "Namespace Bank.Domain.Tests | Documentacion BankAccount",
+    "summary": "Namespace Bank.Domain.Tests Classes BankAccountTests"
+  },
+  "docs/getting-started.html": {
+    "href": "docs/getting-started.html",
+    "title": "Getting Started | Documentacion BankAccount",
+    "summary": "Getting Started"
+  },
+  "docs/introduction.html": {
+    "href": "docs/introduction.html",
+    "title": "Introduction | Documentacion BankAccount",
+    "summary": "Introduction"
+  },
+  "index.html": {
+    "href": "index.html",
+    "title": "This is the HOMEPAGE. | Documentacion BankAccount",
+    "summary": "This is the HOMEPAGE. Refer to Markdown for how to write markdown files. Quick Start Notes: Add images to the images folder if the file is referencing an image."
+  }
+}
