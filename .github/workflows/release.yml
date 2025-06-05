@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      NUGET_VERSION: 2022074263
+      NUGET_VERSION: 2022073902
 
     steps:
       - name: Checkout repo
