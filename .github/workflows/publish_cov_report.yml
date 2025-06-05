@@ -1,0 +1,50 @@
+name: Publish Coverage Report
+
+on:
+  push:
+    branches:
+      - main   # Cambia si usas otra rama principal
+
+jobs:
+  build_test_coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: |
+          cd Bank
+          dotnet restore
+
+      - name: Build solution
+        run: |
+          cd Bank
+          dotnet build --no-restore --configuration Release
+
+      - name: Run tests with coverage
+        run: |
+          cd Bank
+          dotnet test --no-build --configuration Release --collect:"XPlat Code Coverage" --results-directory ./TestResults
+
+      - name: Install ReportGenerator tool
+        run: dotnet tool install -g dotnet-reportgenerator-globaltool
+
+      - name: Install Stryker tool
+        run: dotnet tool install -g dotnet-stryker
+
+      - name: Generate coverage report
+        run: |
+          reportgenerator -reports:"Bank/TestResults/**/coverage.cobertura.xml" -targetdir:"coverage-report" -reporttypes:"Html"
+
+      - name: Deploy coverage report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage-report
